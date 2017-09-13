@@ -263,11 +263,14 @@ function GamePlaneOperator:removeCards(playerType, value, isRemoveNewCard)
 	playerPlaneOperator:removeCards(playerType, self:getPlayerPlane(playerType), value, isRemoveNewCard)
 end
 
-function GamePlaneOperator:showControlPlane(controlTable)
 
+---显示操作按钮界面
+function GamePlaneOperator:showControlPlane(controlTable)
+	
 	ZZMJ_CONTROL_TABLE = controlTable
 
 	local controlType = controlTable["type"]
+
 
 	if controlType == CONTROL_TYPE_NONE then
 		--todo
@@ -280,6 +283,8 @@ function GamePlaneOperator:showControlPlane(controlTable)
 	playerPlaneOperator:showControlPlane(self:getPlayerPlane(CARD_PLAYERTYPE_MY), controlType)
 
 end
+
+
 
 function GamePlaneOperator:hideControlPlane()
 	playerPlaneOperator:hideControlPlane(self:getPlayerPlane(CARD_PLAYERTYPE_MY))

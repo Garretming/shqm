@@ -198,6 +198,8 @@ function PlayerPlaneOperator:showCards(playerType, plane,tingSeq)
 	
 end
 
+
+-----显示操作按钮
 function PlayerPlaneOperator:showControlPlane(plane, controlType)
 	
 	local controlPlane = plane:getChildByName(CHILD_NAME_CONTROL_PLANE)

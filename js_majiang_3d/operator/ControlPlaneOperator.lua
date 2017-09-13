@@ -120,7 +120,7 @@ function ControlPlaneOperator:init(playerType, img, plane, lgPlane, tingHuPlane)
 		--听按钮
 		self.ting_bt = ccui.Button:create()
 		self.ting_bt:loadTextureNormal("js_majiang_3d/image/majong_ting_bt_p.png")
-		self.ting_bt:setVisible(true)
+		self.ting_bt:setVisible(false)
 		plane:addChild(self.ting_bt)
 
 		plane:setVisible(false)
@@ -363,7 +363,7 @@ function ControlPlaneOperator:showImage(img, type)
 
 end
 
---显示碰杠吃亮胡操作界面
+--显示碰杠吃亮胡操作界面  加听牌操作
 function ControlPlaneOperator:showPlane(plane, controlType)
 
 	if controlType == 0 then
@@ -454,11 +454,11 @@ function ControlPlaneOperator:showPlane(plane, controlType)
 	end
 
 	if bit.band(controlType, CONTROL_TYPE_TING) > 0 then
-		-- self.liang_bt:setVisible(true)
-		-- local size = self.liang_bt:getSize()
-		-- self.liang_bt:setPosition(cc.p(oriX + size.width / 2, size.height / 2))
+		self.ting_bt:setVisible(true)
+		local size = self.ting_bt:getSize()
+		self.ting_bt:setPosition(cc.p(oriX + size.width / 2, size.height / 2))
 
-		-- oriX = oriX + size.width + CONTROL_BT_SPLIT
+		oriX = oriX + size.width + CONTROL_BT_SPLIT
 		
 		-- plane:setVisible(false)
 		-- local value = HNMJ_CONTROL_TABLE["value"]

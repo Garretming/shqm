@@ -183,84 +183,35 @@ function ZZMJReceiveHandle:ctor()
 end
 
 local LocaArrayByPlayerType = {}
-
+--亮倒（听牌）
 function ZZMJReceiveHandle:SVR_LIANGDAO(pack)
-    dump(pack, "----亮倒操作前的数据----")
+    dump(pack, "----亮倒操作前的数据-  0x3009--  收到消息-")
 		--todo 通知界面   当前玩家是指定听牌玩家---显示听牌按钮
 
-
-
-	-- local scenes = SCENENOW['scene']
-	-- if SCENENOW["name"] ~= run_scene_name then
-	-- 	return
-	-- end
-
-    -- require("hall.NetworkLoadingView.NetworkLoadingView"):removeView()
-
-    -- --获取广播用户进行的操作
-	-- local handle = pack.handle
-
-    -- --获取触发操作的牌值
-	-- local value = bit.band(pack.card, 0xFF)
-
-    -- --获取触发操作的用户的位置
-    -- local seatId = ZZMJ_SEAT_TABLE[pack.uid .. ""]
-    -- local playerType = cardUtils:getPlayerType(seatId)
-
-    -- --获取听牌序列
-	-- local tingSeq = pack.tingCards
-    -- TINGSEQ = tingSeq
-
-    -- --显示听牌提示区域
-    -- if pack.tingCount > 0 then
-    --     for k,v in pairs(pack.tingCards) do
-    --         if playerType == CARD_PLAYERTYPE_MY then
-    --             gamePlaneOperator:showTingHuPlane(playerType, v.tingHuCards)
-    --         end
-    --     end
-    -- end
-          
-    -- -- gamePlaneOperator:showCards(CARD_PLAYERTYPE_MY)
-	-- local progCards, removeCards = cardUtils:processControl(seatId, handle, value)
-
-    -- local reloginFlage = false
-
-    -- --牌的来源玩家
-    -- local fromplayerType = cardUtils:getPlayerType(pack.lid)
-
-    -- --等待操作牌
-    -- if D3_WAIT_OPRATE_CARD == 1 then
-
-    --     --记录正在重连
-    --     reloginFlage = true
-
-    --     if fromplayerType ~= playerType then
-
-    --         D3_WAIT_OPRATE_CARD = gamePlaneOperator:removeLatestOutCard(fromplayerType,value)
-    --         dump(D3_WAIT_OPRATE_CARD,"D3_WAIT_OPRATE_CARD")
-
-    --     else
-
-    --         D3_WAIT_OPRATE_CARD = nil
-
-    --     end
-
-    -- end
-
-    -- --5个参数
-	-- gamePlaneOperator:control(playerType, progCards, handle, tingSeq, removeCards,fromplayerType,reloginFlage)
-
-	-- --播放音效
-	-- voiceUtils:playControlSound(seatId, handle)
-
-	-- if playerType == CARD_PLAYERTYPE_MY then 
-    --     D3_CHUPAI = 1
-
-	-- else 
-    --     gamePlaneOperator:hideControlPlane(playerType) --取消其他玩家的操作
-
-	-- end
-
+-- 				             "huCardsSum"   = 1	
+-- - "----亮倒操作前的数据-  0x3009--  收到消息-" = {	
+-- -         }	
+-- -     "LiangDate" = {	
+-- -         1 = {	
+-- -     }	
+-- -             "OpCard"       = 51	
+-- -             component = *MAX NESTING*	
+-- -     "UserId"    = 100845	
+-- -             "componentSum" = 2	
+-- -     "cardSum"   = 1	
+-- -             huCards = *MAX NESTING*	
+-- -             "huCardsSum"   = 1	
+-- -     "cmd"       = 12297	
+-- -         }	
+-- - }	
+-- -     }	
+-- -     "UserId"    = 100845	
+	 if pack.UserId  == UID then
+		--构建听牌数据
+		local showBtnType = {}
+		showBtnType["type"] = 0x1000
+		gamePlaneOperator:showControlPlane(showBtnType)
+	 end
 
 end
 
