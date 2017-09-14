@@ -206,11 +206,21 @@ function ZZMJReceiveHandle:SVR_LIANGDAO(pack)
 -- - }	
 -- -     }	
 -- -     "UserId"    = 100845	
+
+--获取触发操作的用户的位置
+    local seatId = ZZMJ_SEAT_TABLE[pack.UserId .. ""]
+    local playerType = cardUtils:getPlayerType(seatId)
+	-- pritn("")
+	--  if playerType  == CARD_PLAYERTYPE_MY then
 	 if pack.UserId  == UID then
 		--构建听牌数据
-		local showBtnType = {}
-		showBtnType["type"] = 0x1000
-		gamePlaneOperator:showControlPlane(showBtnType)
+		local showTingBtnType = {}
+
+		showTingBtnType["type"] = 0x1000  --操作类型
+		print(TING_TYPE_T,"-------------")
+		showTingBtnType["value"] = pack.LiangDate.OpCard  --可丢弃的牌
+		--听牌
+		gamePlaneOperator:showControlPlane(showTingBtnType)
 	 end
 
 end
@@ -1411,7 +1421,14 @@ function ZZMJReceiveHandle:SVR_PLAYER_USER_BROADCAST(pack)
     if pack.tingCount > 0 then
         for k,v in pairs(pack.tingCards) do
             if playerType == CARD_PLAYERTYPE_MY then
-                gamePlaneOperator:showTingHuPlane(playerType, v.tingHuCards)
+                gamePlaneOperator:showTingHuPlane(playerType, v.tingHuCards)--显示听牌提示牌
+
+
+				--@garret 显示听牌按钮
+				local showTingBtnType = {}
+				showTingBtnType["type"] = TING_TYPE_T  --操作类型
+				showTingBtnType["value"] = v.card --听牌要丢弃的牌
+				gamePlaneOperator:showControlPlane(showTingBtnType)
             end
         end
     end

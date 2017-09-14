@@ -228,6 +228,11 @@ function headView:getUrlPicture(url)
     end
     local strUrl = string.reverse(url)
     local nPos = string.find(strUrl,"/")
+    --@garret 
+    if nPos == nil then
+        nPos = string.find(strUrl,"\\")
+    end
+
     local strPic = string.sub(strUrl,1,nPos-1)
     strPic = string.reverse(strPic)
     -- print("getUrlPicture:",strPic)

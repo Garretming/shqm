@@ -62,6 +62,16 @@ function majiangServer:requestHandle(handle, value)
     bm.server:send(pack)
 end
 
+--@garret  请求服务器---听牌操作
+function majiangServer:requestTingHandle(handle, value)
+
+    local pack = bm.server:createPacketBuilder(PROTOCOL.SVR_LIANGDAO)
+        :setParameter("handle", handle)
+        :setParameter("card", value)    
+        :build()
+    bm.server:send(pack)
+end
+
 --出牌
 function majiangServer:sendCard(value)
 -- -----------广东特殊的牌值处理（西风和北风）--------

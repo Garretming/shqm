@@ -97,7 +97,8 @@ function ZZMJScene:ctor()
     local instruction_bt = menu_ly:getChildByName("instruction_bt")
     local remark_lb = ZZMJ_GAME_PLANE:getChildByName("remark_lb")
     local remark_img = ZZMJ_GAME_PLANE:getChildByName("remark_img")
-    
+
+
     instruction_bt:addTouchEventListener(
         function(sender,event)
             --触摸开始

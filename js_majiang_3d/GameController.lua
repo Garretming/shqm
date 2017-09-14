@@ -1,5 +1,5 @@
 local ZZMJController = class("ZZMJController")
-
+--请求服务器操作牌
 function ZZMJController:control(controlType, value)
 
 	dump(controlType, "-----ZZMJController:control-----")
@@ -9,7 +9,12 @@ function ZZMJController:control(controlType, value)
 		D3_CHUPAI = 1
 	end
 
-	require("js_majiang_3d.handle.ZZMJSendHandle"):requestHandle(controlType, value)
+	if bit.band(controlType, TING_TYPE_T) > 0 then
+		require("js_majiang_3d.handle.ZZMJSendHandle"):requestHandle(controlType, value)
+	else
+		require("js_majiang_3d.handle.ZZMJSendHandle"):requestHandle(controlType, value)
+	end
+	
 
 end
 

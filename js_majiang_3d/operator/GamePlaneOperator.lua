@@ -73,7 +73,9 @@ function GamePlaneOperator:showQiangTou(show, fanCardValue, caiShenCards)
 	if ZZMJ_GAME_PLANE ~= nil then
 
 		local qiangTouPlane = ZZMJ_GAME_PLANE:getChildByName(CHILD_NAME_QIANGTOU_PLANE)
-		qiangTouPlane:setVisible(show)
+		-- qiangTouPlane:setVisible(show)
+		--@garret 隐藏财神提示
+		qiangTouPlane:setVisible(false)
 		qiangTouPlane:setSize(153.00, 33.00)
 
 		if fanCardValue ~= nil then
@@ -228,6 +230,8 @@ function GamePlaneOperator:playCard(playerType, tag, value)
 	-- 	end, 1, false)
 end
 
+
+----@garret  处理相应的游戏打牌操作
 function GamePlaneOperator:control(playerType, progCards, controlType, tingSeq,removeCards,fromplayerType,reloginFlage)
 
 	ZZMJ_CARD_POINTER:stopAllActions()
@@ -239,6 +243,8 @@ function GamePlaneOperator:control(playerType, progCards, controlType, tingSeq,r
 	self:beginPlayCard(playerType)
 	
 end
+
+
 
 function GamePlaneOperator:showPlayerInfo(playerType, userInfo)
 	return playerPlaneOperator:showPlayerInfo(userInfo, self:getPlayerPlane(playerType))
@@ -267,7 +273,7 @@ end
 ---显示操作按钮界面
 function GamePlaneOperator:showControlPlane(controlTable)
 	
-	ZZMJ_CONTROL_TABLE = controlTable
+	ZZMJ_CONTROL_TABLE = controlTable --操作具体数据
 
 	local controlType = controlTable["type"]
 

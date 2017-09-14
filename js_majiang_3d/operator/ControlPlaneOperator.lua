@@ -131,6 +131,7 @@ function ControlPlaneOperator:init(playerType, img, plane, lgPlane, tingHuPlane)
 				local controlType = ZZMJ_CONTROL_TABLE["type"]
 				local value = ZZMJ_CONTROL_TABLE["value"]
 				local gangCards = ZZMJ_CONTROL_TABLE["gangCards"]
+				
 
 				if sender == self.hu_bt then
 					--todo
@@ -194,17 +195,15 @@ function ControlPlaneOperator:init(playerType, img, plane, lgPlane, tingHuPlane)
 						ZZMJ_LG_CARDS = {}
 						ZZMJ_CONTROLLER:requestLiangGang()
 					end
-				elseif sender == self.ting_bt then
+				elseif sender == self.ting_bt then  ---亮倒  （听牌）
+					--移除一张牌  ---给服务器消息移除一张牌
 					plane:setVisible(false)
+				
+					--处理移除牌
+					-- local tingMoveCards = ZZMJ_CONTROL_TABLE["OpCard"]--@garret 可以丢弃的牌
+					-- -- ZZMJ_CONTROLLER:control(0, tingMoveCards)
+					ZZMJ_CONTROLLER:control(bit.band(controlType, CONTROL_TYPE_TING), value)
 					
-					-- if table.getn(ZZMJ_CONTROL_TABLE.gangSeq) > 0 then
-					-- 	--todo
-					-- 	ZZMJ_CONTROLLER:showLgSelectBox(ZZMJ_CONTROL_TABLE.gangSeq)
-					-- else
-					-- 	-- ZZMJ_CONTROLLER:showTingCards(ZZMJ_CONTROL_TABLE.tingSeq)
-					-- 	ZZMJ_LG_CARDS = {}
-					-- 	ZZMJ_CONTROLLER:requestLiangGang()
-					-- end
 						
 				end
 			end
@@ -219,6 +218,7 @@ function ControlPlaneOperator:init(playerType, img, plane, lgPlane, tingHuPlane)
 		self.guo_bt:addTouchEventListener(bt_callback)
 		self.chi_bt:addTouchEventListener(bt_callback)
 		self.liang_bt:addTouchEventListener(bt_callback)
+		self.ting_bt:addTouchEventListener(bt_callback)
 	end
 
 	if lgPlane then
@@ -451,19 +451,33 @@ function ControlPlaneOperator:showPlane(plane, controlType)
 
 		oriX = oriX + box_width
 
-	end
 
+
+	end
+	--@garret 听牌
 	if bit.band(controlType, CONTROL_TYPE_TING) > 0 then
-		self.ting_bt:setVisible(true)
-		local size = self.ting_bt:getSize()
-		self.ting_bt:setPosition(cc.p(oriX + size.width / 2, size.height / 2))
+			self.ting_bt:setVisible(true)
+			local size = self.ting_bt:getSize()
+			self.ting_bt:setPosition(cc.p(oriX + size.width / 2, size.height / 2))
 
-		oriX = oriX + size.width + CONTROL_BT_SPLIT
+			oriX = oriX + size.width + CONTROL_BT_SPLIT
+
+			--显示选牌盒子
+			-- self.select_bx:setVisible(true)
+
+			--显示可选择项目
+			-- if #ZZMJ_CONTROL_TABLE["cardSum"] > 1 then
+			-- 	self.gang_select_bx:setVisible(true)
+			-- else
+			-- 	self.gang_select_bx:setVisible(false)
+			-- end
+
+			-- local box_width = self:showSelectBox(controlType)
+
+			-- self.select_bx:setPosition(cc.p(oriX + box_width / 2, self.select_bx:getSize().height / 2))
+			-- self.select_bx:setSize(cc.size(box_width, 66.92 * boxscale))
 		
-		-- plane:setVisible(false)
-		-- local value = HNMJ_CONTROL_TABLE["value"]
-		-- ZZMJ_CONTROLLER:control(0, value)
-	end
+		end
 
 	local size = self.guo_bt:getSize()
 	
@@ -493,7 +507,7 @@ function ControlPlaneOperator:showSelectBox(controlType)
 
 	local cardScale = 1.5
 	local bx_width = 20
-
+	dump(controlType,"controlType------")
 	if bit.band(controlType, CHI_TYPE_LEFT) > 0 then
 
 		dump(value, "-----CHI_TYPE_LEFT-----")
